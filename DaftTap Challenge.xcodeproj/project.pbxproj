@@ -56,15 +56,47 @@
 		01B71B68228239B5004A7E1F /* DaftTap Challenge */ = {
 			isa = PBXGroup;
 			children = (
+				01B71B7E22823B4E004A7E1F /* Model */,
 				01B71B69228239B5004A7E1F /* AppDelegate.swift */,
-				01B71B6B228239B5004A7E1F /* ViewController.swift */,
-				01B71B6D228239B5004A7E1F /* Main.storyboard */,
-				01B71B73228239B6004A7E1F /* Assets.xcassets */,
-				01B71B75228239B6004A7E1F /* LaunchScreen.storyboard */,
-				01B71B78228239B6004A7E1F /* Info.plist */,
-				01B71B70228239B5004A7E1F /* DaftTap_Challenge.xcdatamodeld */,
+				01B71B7F22823B5D004A7E1F /* View */,
+				01B71B8122823B74004A7E1F /* Controller */,
+				01B71B8222823B80004A7E1F /* SupportFiles */,
 			);
 			path = "DaftTap Challenge";
+			sourceTree = "<group>";
+		};
+		01B71B7E22823B4E004A7E1F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				01B71B70228239B5004A7E1F /* DaftTap_Challenge.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		01B71B7F22823B5D004A7E1F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				01B71B6D228239B5004A7E1F /* Main.storyboard */,
+				01B71B75228239B6004A7E1F /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		01B71B8122823B74004A7E1F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				01B71B6B228239B5004A7E1F /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		01B71B8222823B80004A7E1F /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				01B71B73228239B6004A7E1F /* Assets.xcassets */,
+				01B71B78228239B6004A7E1F /* Info.plist */,
+			);
+			path = SupportFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,7 +320,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 664H2WD289;
-				INFOPLIST_FILE = "DaftTap Challenge/Info.plist";
+				INFOPLIST_FILE = "DaftTap Challenge/SupportFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,7 +338,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 664H2WD289;
-				INFOPLIST_FILE = "DaftTap Challenge/Info.plist";
+				INFOPLIST_FILE = "DaftTap Challenge/SupportFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
