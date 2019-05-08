@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		012E89A722825B5100907673 /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012E89A622825B5100907673 /* RecordCell.swift */; };
+		016C4C1622833286009CBB4C /* GameScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016C4C1522833286009CBB4C /* GameScreenController.swift */; };
 		01B71B6A228239B5004A7E1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B71B69228239B5004A7E1F /* AppDelegate.swift */; };
 		01B71B6C228239B5004A7E1F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B71B6B228239B5004A7E1F /* ViewController.swift */; };
 		01B71B6F228239B5004A7E1F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01B71B6D228239B5004A7E1F /* Main.storyboard */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		012E89A622825B5100907673 /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
+		016C4C1522833286009CBB4C /* GameScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreenController.swift; sourceTree = "<group>"; };
 		01B71B66228239B5004A7E1F /* DaftTap Challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DaftTap Challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		01B71B69228239B5004A7E1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01B71B6B228239B5004A7E1F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -57,7 +61,6 @@
 			isa = PBXGroup;
 			children = (
 				01B71B7E22823B4E004A7E1F /* Model */,
-				01B71B69228239B5004A7E1F /* AppDelegate.swift */,
 				01B71B7F22823B5D004A7E1F /* View */,
 				01B71B8122823B74004A7E1F /* Controller */,
 				01B71B8222823B80004A7E1F /* SupportFiles */,
@@ -86,6 +89,8 @@
 			isa = PBXGroup;
 			children = (
 				01B71B6B228239B5004A7E1F /* ViewController.swift */,
+				012E89A622825B5100907673 /* RecordCell.swift */,
+				016C4C1522833286009CBB4C /* GameScreenController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -93,6 +98,7 @@
 		01B71B8222823B80004A7E1F /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
+				01B71B69228239B5004A7E1F /* AppDelegate.swift */,
 				01B71B73228239B6004A7E1F /* Assets.xcassets */,
 				01B71B78228239B6004A7E1F /* Info.plist */,
 			);
@@ -172,6 +178,8 @@
 			files = (
 				01B71B72228239B5004A7E1F /* DaftTap_Challenge.xcdatamodeld in Sources */,
 				01B71B6C228239B5004A7E1F /* ViewController.swift in Sources */,
+				016C4C1622833286009CBB4C /* GameScreenController.swift in Sources */,
+				012E89A722825B5100907673 /* RecordCell.swift in Sources */,
 				01B71B6A228239B5004A7E1F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,7 +336,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "nikitagulak.DaftTap-Challenge";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -346,7 +354,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "nikitagulak.DaftTap-Challenge";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
