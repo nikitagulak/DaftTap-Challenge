@@ -13,13 +13,14 @@ class GameScreenController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         isTopElementsHidden(true)
-        
         countDownLabelSetUp()
-        
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDown), userInfo: nil, repeats: true)
     }
+    
+    @IBOutlet weak var numberOfTapsLabel: UILabel!
+    @IBOutlet weak var remainingTimeLabel: UILabel!
+    @IBOutlet weak var remainingTimeBar: UIView!
     
     var timer = Timer()
     var countDownTimeInSeconds = 3
@@ -30,9 +31,12 @@ class GameScreenController: UIViewController {
     var tapRecognizer = UITapGestureRecognizer()
     var numberOfTaps = 0
     
-    @IBOutlet weak var numberOfTapsLabel: UILabel!
-    @IBOutlet weak var remainingTimeLabel: UILabel!
-    @IBOutlet weak var remainingTimeBar: UIView!
+    var lowestResult = bestResultRecords.min(by: { (a, b) -> Bool in
+        return a.numberOfTaps < b.numberOfTaps ? true : false
+    })
+    var highestResult = bestResultRecords.max(by: { (a, b) -> Bool in
+        return a.numberOfTaps < b.numberOfTaps ? true : false
+    })
     
     func startGame() {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(gameTimeRemain), userInfo: nil, repeats: true)
@@ -79,7 +83,6 @@ class GameScreenController: UIViewController {
         request.returnsObjectsAsFaults = false
         do {
             let records = try context.fetch(request)
-//            let objectToDelete = records.min { a, b in (a as! BestResultRecord).numberOfTaps < (b as! BestResultRecord).numberOfTaps} as! [NSManagedObject]
             let objectToDelete = records.min { a, b in (a as AnyObject).numberOfTaps < (b as AnyObject).numberOfTaps} as! NSManagedObject
             context.delete(objectToDelete)
             do {
@@ -115,26 +118,42 @@ class GameScreenController: UIViewController {
             tapRecognizer.isEnabled = false
             
             let date = Date()
-            var titleForAlert = "You've tapped \(numberOfTaps) times"
+            var titleForAlert = "Result"
+            
             
             if bestResultRecords.isEmpty {
                 saveResult(numberOfTaps: numberOfTaps, date: date)
-            } else if bestResultRecords.count < 5 {
+            } else {
+                var isExist = false
                 for record in bestResultRecords {
-                    if record.numberOfTaps != numberOfTaps {
-                        saveResult(numberOfTaps: numberOfTaps, date: date)
+                    if numberOfTaps == record.numberOfTaps {
+                        isExist = true
                     }
                 }
-            } else {
-                if numberOfTaps > bestResultRecords.min(by: { (BestResultRecord1, BestResultRecord2) -> Bool in
-                    return BestResultRecord1.numberOfTaps < BestResultRecord2.numberOfTaps ? true : false
-                })!.numberOfTaps {
-                    saveResult(numberOfTaps: numberOfTaps, date: date)
-                    deleteLowestResult()
+                if isExist == false {
+                    if bestResultRecords.count < 5 {
+                        if numberOfTaps > highestResult!.numberOfTaps {
+                            titleForAlert = "New Record! 🎉"
+                            saveResult(numberOfTaps: numberOfTaps, date: date)
+                        } else {
+                            saveResult(numberOfTaps: numberOfTaps, date: date)
+                        }
+                    } else if bestResultRecords.count == 5 {
+                        if numberOfTaps > lowestResult!.numberOfTaps {
+                            if numberOfTaps > highestResult!.numberOfTaps {
+                                titleForAlert = "New Record! 🎉"
+                                deleteLowestResult()
+                                saveResult(numberOfTaps: numberOfTaps, date: date)
+                            } else {
+                                deleteLowestResult()
+                                saveResult(numberOfTaps: numberOfTaps, date: date)
+                            }
+                        }
+                    }
                 }
             }
             
-            let alert = UIAlertController(title: "Result", message: "You've tapped \(numberOfTaps) times", preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: titleForAlert, message: "You've tapped \(numberOfTaps) times", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Done", style: UIAlertAction.Style.default, handler: { (action) in
                 self.dismiss(animated: false, completion: nil)
             }))
