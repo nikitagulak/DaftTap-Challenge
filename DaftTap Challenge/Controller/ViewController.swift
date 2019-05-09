@@ -7,43 +7,79 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if items.isEmpty {
-            collectionView.isHidden = true
-            captionLabel.text = "Play the game and you will see your result here"
-            let image = UIImage(named: "Illustration.png")
-            let imageView = UIImageView(image: image!)
-            imageView.frame = CGRect(x: 0, y: 0, width: 118, height: 118)
-            imageView.center = self.view.center
-            view.addSubview(imageView)
-        }
+        fetchBestResults()
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        сollectionViewEmptinessChecker()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetchBestResults()
+        сollectionViewEmptinessChecker()
+        collectionView.reloadData()
     }
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var captionLabel: UILabel!
     
-    let items: [String] = []
-    
-    @IBAction func playButtonPressed(_ sender: UIButton) {
-//        let vc = storyboard!.instantiateViewController(withIdentifier: "gameScreen") as! GameScreenController
-//        navigationController?.pushViewController(vc, animated: false)
-    }
+    let illustration = UIImageView(image: UIImage(named: "Illustration.png")!)
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
+        return bestResultRecords.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recordCell", for: indexPath) as! RecordCell
-        cell.tapsLabel.text = items[indexPath.row]
+        cell.tapsLabel.text = "\(bestResultRecords[indexPath.row].numberOfTaps) taps"
+        cell.timeLabel.text = "\(bestResultRecords[indexPath.row].timeStamp.localString())"
         return cell
     }
-
+    
+    func fetchBestResults() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "BestResult")
+        request.returnsObjectsAsFaults = false
+        var fetchedResult = [BestResultRecord]()
+        do {
+            let records = try context.fetch(request)
+            for data in records as! [NSManagedObject] {
+                fetchedResult.append(BestResultRecord(numberOfTaps: data.value(forKey: "numberOfTaps") as! Int, timeStamp: data.value(forKey: "timeStamp") as! Date))
+            }
+            fetchedResult.sort { (a, b) -> Bool in
+                a.numberOfTaps > b.numberOfTaps
+            }
+            bestResultRecords = fetchedResult
+            
+        } catch {
+            print("Failed fetching CoreData")
+        }
+        
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+        
+    }
+    
+    func сollectionViewEmptinessChecker() {
+        if bestResultRecords.isEmpty {
+            collectionView.isHidden = true
+            captionLabel.text = "Play the game and you will see your result here"
+            illustration.frame = CGRect(x: 0, y: 0, width: 118, height: 118)
+            illustration.center = self.view.center
+            view.addSubview(illustration)
+        } else {
+            collectionView.isHidden = false
+            captionLabel.text = "BEST RESULT"
+            illustration.removeFromSuperview()
+        }
+    }
 
 }
 

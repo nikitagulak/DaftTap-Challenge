@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		012E89A722825B5100907673 /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012E89A622825B5100907673 /* RecordCell.swift */; };
 		016C4C1622833286009CBB4C /* GameScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016C4C1522833286009CBB4C /* GameScreenController.swift */; };
+		016C4C18228437A4009CBB4C /* BestResultRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016C4C17228437A4009CBB4C /* BestResultRecord.swift */; };
 		01B71B6A228239B5004A7E1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B71B69228239B5004A7E1F /* AppDelegate.swift */; };
 		01B71B6C228239B5004A7E1F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B71B6B228239B5004A7E1F /* ViewController.swift */; };
 		01B71B6F228239B5004A7E1F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01B71B6D228239B5004A7E1F /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		012E89A622825B5100907673 /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
 		016C4C1522833286009CBB4C /* GameScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreenController.swift; sourceTree = "<group>"; };
+		016C4C17228437A4009CBB4C /* BestResultRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestResultRecord.swift; sourceTree = "<group>"; };
 		01B71B66228239B5004A7E1F /* DaftTap Challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DaftTap Challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		01B71B69228239B5004A7E1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01B71B6B228239B5004A7E1F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				01B71B70228239B5004A7E1F /* DaftTap_Challenge.xcdatamodeld */,
+				016C4C17228437A4009CBB4C /* BestResultRecord.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01B71B72228239B5004A7E1F /* DaftTap_Challenge.xcdatamodeld in Sources */,
+				016C4C18228437A4009CBB4C /* BestResultRecord.swift in Sources */,
 				01B71B6C228239B5004A7E1F /* ViewController.swift in Sources */,
 				016C4C1622833286009CBB4C /* GameScreenController.swift in Sources */,
 				012E89A722825B5100907673 /* RecordCell.swift in Sources */,
