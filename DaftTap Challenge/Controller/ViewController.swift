@@ -14,7 +14,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchBestResults()
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         сollectionViewEmptinessChecker()
     }
     

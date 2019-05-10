@@ -161,7 +161,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="I2B-K8-em9">
-                                <rect key="frame" x="24" y="44" width="327" height="45.5"/>
+                                <rect key="frame" x="24" y="44" width="327" height="37"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="vZe-tJ-e5Q">
                                         <rect key="frame" x="0.0" y="0.0" width="327" height="25.5"/>
@@ -179,21 +179,23 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                    </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1HU-W7-Uxn">
-                                        <rect key="frame" x="0.0" y="35.5" width="327" height="10"/>
-                                        <color key="backgroundColor" red="0.21568627450980393" green="0.87058823529411766" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="10" id="5IY-Mt-3pv"/>
+                                            <constraint firstItem="flh-zR-a5H" firstAttribute="top" secondItem="vZe-tJ-e5Q" secondAttribute="top" id="VQQ-m6-vub"/>
+                                            <constraint firstAttribute="trailing" secondItem="5uR-zR-VXC" secondAttribute="trailing" id="fpS-va-wZP"/>
+                                            <constraint firstItem="flh-zR-a5H" firstAttribute="leading" secondItem="vZe-tJ-e5Q" secondAttribute="leading" id="fuJ-9V-dlW"/>
+                                            <constraint firstItem="5uR-zR-VXC" firstAttribute="top" secondItem="vZe-tJ-e5Q" secondAttribute="top" id="vJ4-ec-PKV"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
+                                    </stackView>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="slX-mZ-iOC">
+                                        <rect key="frame" x="0.0" y="35.5" width="327" height="2.5"/>
+                                        <color key="progressTintColor" red="0.21568627450980393" green="0.87058823529411766" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </progressView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="vZe-tJ-e5Q" firstAttribute="leading" secondItem="I2B-K8-em9" secondAttribute="leading" id="JGS-Ww-fsK"/>
+                                    <constraint firstItem="vZe-tJ-e5Q" firstAttribute="top" secondItem="I2B-K8-em9" secondAttribute="top" id="vFg-Of-DfE"/>
+                                    <constraint firstAttribute="trailing" secondItem="vZe-tJ-e5Q" secondAttribute="trailing" id="za4-wQ-WQh"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.047058823529411764" green="0.062745098039215685" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -206,7 +208,7 @@
                     </view>
                     <connections>
                         <outlet property="numberOfTapsLabel" destination="flh-zR-a5H" id="DyS-KY-hVg"/>
-                        <outlet property="remainingTimeBar" destination="1HU-W7-Uxn" id="5T5-gz-zfv"/>
+                        <outlet property="remainingTimeBar" destination="slX-mZ-iOC" id="K2K-8G-qO8"/>
                         <outlet property="remainingTimeLabel" destination="5uR-zR-VXC" id="bOF-7b-tjs"/>
                     </connections>
                 </viewController>
