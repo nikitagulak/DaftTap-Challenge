@@ -11,5 +11,4 @@ import UIKit
 class RecordCell: UICollectionViewCell {
     @IBOutlet weak var tapsLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    
 }

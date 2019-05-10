@@ -23,32 +23,28 @@ class GameScreenController: UIViewController {
     @IBOutlet weak var remainingTimeLabel: UILabel!
     @IBOutlet weak var remainingTimeBar: UIProgressView!
     
-    var timer = Timer()
-    var countDownTimeInSeconds = 3
-    var gameTimeInSeconds = 5
     
-    var countDownLabel = UILabel()
     
+    // MARK: GAMEPLAY
     var tapRecognizer = UITapGestureRecognizer()
     var numberOfTaps = 0
     
-    var lowestResult = bestResultRecords.min(by: { (a, b) -> Bool in
-        return a.numberOfTaps < b.numberOfTaps ? true : false
-    })
-    var highestResult = bestResultRecords.max(by: { (a, b) -> Bool in
-        return a.numberOfTaps < b.numberOfTaps ? true : false
-    })
-    
-    var shapeLayer = CAShapeLayer()
-    
     func startGame() {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(gameTimeRemain), userInfo: nil, repeats: true)
-        
         perform(#selector(updateRemainingTimeBar), with: nil, afterDelay: 0)
-        
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         view.addGestureRecognizer(tapRecognizer)
     }
+    
+    @objc func viewTapped() {
+        numberOfTaps += 1
+        numberOfTapsLabel.text = "\(numberOfTaps) taps"
+    }
+    
+    
+    
+    // MARK: UI SETTING METHODS
+    var countDownLabel = UILabel()
     
     func countDownLabelSetUp() {
         countDownLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -66,7 +62,16 @@ class GameScreenController: UIViewController {
         remainingTimeBar.isHidden = bool
     }
     
+    
+    
     // MARK: UPDATE BEST RECORDS METHODS
+    var lowestResult = bestResultRecords.min(by: { (a, b) -> Bool in
+        return a.numberOfTaps < b.numberOfTaps ? true : false
+    })
+    var highestResult = bestResultRecords.max(by: { (a, b) -> Bool in
+        return a.numberOfTaps < b.numberOfTaps ? true : false
+    })
+    
     func saveResult(numberOfTaps: Int, date: Date) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -101,6 +106,13 @@ class GameScreenController: UIViewController {
         }
     }
     
+    
+    
+    // TIMING METHODS
+    var timer = Timer()
+    var countDownTimeInSeconds = 3
+    var gameTimeInSeconds = 5
+    
     @objc func countDown() {
         countDownTimeInSeconds -= 1
         
@@ -119,6 +131,7 @@ class GameScreenController: UIViewController {
         
         remainingTimeLabel.text = "\(gameTimeInSeconds) seconds"
         
+        // When game is over
         if gameTimeInSeconds == 0 {
             timer.invalidate()
             tapRecognizer.isEnabled = false
@@ -126,32 +139,34 @@ class GameScreenController: UIViewController {
             let date = Date()
             var titleForAlert = "Result"
             
-            if bestResultRecords.isEmpty {
-                saveResult(numberOfTaps: numberOfTaps, date: date)
-            } else {
-                var isExist = false
-                for record in bestResultRecords {
-                    if numberOfTaps == record.numberOfTaps {
-                        isExist = true
-                    }
-                }
-                if isExist == false {
-                    if bestResultRecords.count < 5 {
-                        if numberOfTaps > highestResult!.numberOfTaps {
-                            titleForAlert = "New Record! 🎉"
-                            saveResult(numberOfTaps: numberOfTaps, date: date)
-                        } else {
-                            saveResult(numberOfTaps: numberOfTaps, date: date)
+            if numberOfTaps != 0 {
+                if bestResultRecords.isEmpty {
+                    saveResult(numberOfTaps: numberOfTaps, date: date)
+                } else {
+                    var isExist = false
+                    for record in bestResultRecords {
+                        if numberOfTaps == record.numberOfTaps {
+                            isExist = true
                         }
-                    } else if bestResultRecords.count == 5 {
-                        if numberOfTaps > lowestResult!.numberOfTaps {
+                    }
+                    if isExist == false {
+                        if bestResultRecords.count < 5 {
                             if numberOfTaps > highestResult!.numberOfTaps {
                                 titleForAlert = "New Record! 🎉"
-                                deleteLowestResult()
                                 saveResult(numberOfTaps: numberOfTaps, date: date)
                             } else {
-                                deleteLowestResult()
                                 saveResult(numberOfTaps: numberOfTaps, date: date)
+                            }
+                        } else if bestResultRecords.count == 5 {
+                            if numberOfTaps > lowestResult!.numberOfTaps {
+                                if numberOfTaps > highestResult!.numberOfTaps {
+                                    titleForAlert = "New Record! 🎉"
+                                    deleteLowestResult()
+                                    saveResult(numberOfTaps: numberOfTaps, date: date)
+                                } else {
+                                    deleteLowestResult()
+                                    saveResult(numberOfTaps: numberOfTaps, date: date)
+                                }
                             }
                         }
                     }
@@ -167,11 +182,6 @@ class GameScreenController: UIViewController {
         }
     }
     
-    @objc func viewTapped() {
-        numberOfTaps += 1
-        numberOfTapsLabel.text = "\(numberOfTaps) taps"
-    }
-    
     @objc func updateRemainingTimeBar() {
         UIView.animate(withDuration: 5) {
             self.remainingTimeBar.progress = 0
@@ -180,7 +190,11 @@ class GameScreenController: UIViewController {
         }
     }
     
+    
+    
     //MARK: TAP ANIMATION METHODS
+    var shapeLayer = CAShapeLayer()
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let position = touch.location(in: view)
@@ -206,8 +220,9 @@ class GameScreenController: UIViewController {
         }
         shapeLayer.removeFromSuperlayer()
     }
-    
 }
+
+
 
 extension Date {
     func localString(dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .medium) -> String {

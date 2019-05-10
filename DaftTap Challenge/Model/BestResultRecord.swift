@@ -13,5 +13,4 @@ var bestResultRecords: [BestResultRecord] = []
 struct BestResultRecord {
     let numberOfTaps: Int
     let timeStamp: Date
-    
 }

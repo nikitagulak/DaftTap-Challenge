@@ -20,15 +20,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewWillAppear(_ animated: Bool) {
         fetchBestResults()
         сollectionViewEmptinessChecker()
-        collectionView.reloadData()
     }
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var captionLabel: UILabel!
     
-    let illustration = UIImageView(image: UIImage(named: "Illustration.png")!)
     
     
+    // MARK: COLLECTION VIEW METHODS
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return bestResultRecords.count
     }
@@ -40,6 +39,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return cell
     }
     
+    
+    
+    // MARK: GETTING RECORDS FROM COREDATA
     func fetchBestResults() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -65,6 +67,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         
     }
+    
+    
+    
+    // MARK: UI SETTING Methods
+    let illustration = UIImageView(image: UIImage(named: "Illustration.png")!)
     
     func сollectionViewEmptinessChecker() {
         if bestResultRecords.isEmpty {
