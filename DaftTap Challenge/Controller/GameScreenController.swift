@@ -16,11 +16,12 @@ class GameScreenController: UIViewController {
         isTopElementsHidden(true)
         countDownLabelSetUp()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDown), userInfo: nil, repeats: true)
+        remainingTimeBar.progress = 1
     }
     
     @IBOutlet weak var numberOfTapsLabel: UILabel!
     @IBOutlet weak var remainingTimeLabel: UILabel!
-    @IBOutlet weak var remainingTimeBar: UIView!
+    @IBOutlet weak var remainingTimeBar: UIProgressView!
     
     var timer = Timer()
     var countDownTimeInSeconds = 3
@@ -40,6 +41,8 @@ class GameScreenController: UIViewController {
     
     func startGame() {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(gameTimeRemain), userInfo: nil, repeats: true)
+        
+        perform(#selector(updateRemainingTimeBar), with: nil, afterDelay: 0)
         
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         view.addGestureRecognizer(tapRecognizer)
@@ -166,7 +169,15 @@ class GameScreenController: UIViewController {
         numberOfTaps += 1
         numberOfTapsLabel.text = "\(numberOfTaps) taps"
     }
-
+    
+    @objc func updateRemainingTimeBar() {
+        UIView.animate(withDuration: 5) {
+            self.remainingTimeBar.progress = 0
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
+        }
+    }
+    
 }
 
 extension Date {
