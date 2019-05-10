@@ -39,6 +39,8 @@ class GameScreenController: UIViewController {
         return a.numberOfTaps < b.numberOfTaps ? true : false
     })
     
+    var shapeLayer = CAShapeLayer()
+    
     func startGame() {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(gameTimeRemain), userInfo: nil, repeats: true)
         
@@ -64,6 +66,7 @@ class GameScreenController: UIViewController {
         remainingTimeBar.isHidden = bool
     }
     
+    // MARK: UPDATE BEST RECORDS METHODS
     func saveResult(numberOfTaps: Int, date: Date) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -123,7 +126,6 @@ class GameScreenController: UIViewController {
             let date = Date()
             var titleForAlert = "Result"
             
-            
             if bestResultRecords.isEmpty {
                 saveResult(numberOfTaps: numberOfTaps, date: date)
             } else {
@@ -176,6 +178,33 @@ class GameScreenController: UIViewController {
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
         }
+    }
+    
+    //MARK: TAP ANIMATION METHODS
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let position = touch.location(in: view)
+            
+            let circlePath = UIBezierPath(arcCenter: CGPoint(x: position.x,y: position.y), radius: CGFloat(50), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
+            
+            shapeLayer = CAShapeLayer()
+            shapeLayer.path = circlePath.cgPath
+            shapeLayer.fillColor = UIColor.clear.cgColor
+            shapeLayer.strokeColor = #colorLiteral(red: 0.2156862745, green: 0.8705882353, blue: 0.537254902, alpha: 1)
+            shapeLayer.lineWidth = 3.0
+            
+            view.layer.addSublayer(shapeLayer)
+            perform(#selector(tapCircleAnimation), with: nil, afterDelay: 0.1)
+        }
+    }
+    
+    @objc func tapCircleAnimation() {
+        UIView.animate(withDuration: 0.8) {
+            self.shapeLayer.opacity = 0
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
+        }
+        shapeLayer.removeFromSuperlayer()
     }
     
 }
